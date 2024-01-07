@@ -1,11 +1,7 @@
-import HomePage from "../pages/homePage.jsx"
+import HomePage from "../pages/homePage.jsx";
 
 const Home = () => {
-  return (
-
-    <HomePage />
-
-  )
-}
+  return <HomePage />;
+};
 
 export default Home;

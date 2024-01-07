@@ -1,7 +1,5 @@
 "use client";
 
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
 import { getJobs } from "../api/api.js";
@@ -9,8 +7,8 @@ import LocationFilter from "../components/locationFilter.jsx";
 import CompanyFilter from "../components/companyFilter.jsx";
 import SearchBar from "../components/searchBar.jsx";
 import JobModal from "../components/jobModal";
-import ReactPaginate from 'react-paginate';
-
+import ReactPaginate from "react-paginate";
+import Spinner from "../components/spinner";
 
 const HomePage = () => {
   // data handling and pagination
@@ -80,11 +78,12 @@ const HomePage = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 30;
-  
-const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
- const jobsDisplayed = filteredJobs.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
-
+  const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
+  const jobsDisplayed = filteredJobs.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   // darkmode handling
 
@@ -110,9 +109,7 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
   return (
     <main className={`flex ${bgColor} items-center flex-col min-h-screen`}>
       {/* top bar menu start */}
-
       {/* larger screen menu */}
-
       <div className="bg-gradient-to-r from-midblue to-lightblue w-full p-12">
         <div className="hidden sm:flex items-center justify-between">
           <img
@@ -236,11 +233,8 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
           </h1>
         </div>
       </div>
-
       {/* top bar menu end */}
-
-      {/* filter area start */}
-
+      {/* filter and search area start */}
       <div className="mt-12 mb-12 flex flex-col sm:flex-row items-center justify-center gap-8">
         <div>
           <h1
@@ -269,11 +263,9 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
           </div>
         </div>
       </div>
-
       {/* filter area end */}
-
       {/* jobs listing area start */}
-
+      {isLoading ? <Spinner textColor={textColor} /> :
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
         {jobsDisplayed.map((job) => (
           <div
@@ -285,7 +277,6 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
                 : "shadow-dark hover:shadow-hover-dark"
             }`}
           >
-            {/* Card Content */}
             <div className="flex flex-col items-center justify-center">
               <h1
                 className={`${textColor} text-xl font-quick text-center font-bold mb-8`}
@@ -308,9 +299,9 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
                     d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"
                   />
                 </svg>
-                <h2 className={`${textColor} font-quick font-bold text-md`}>
+                <h1 className={`${textColor} font-quick font-bold text-md`}>
                   {job.companyName}
-                </h2>
+                </h1>
               </div>
 
               <div className="flex items-center justify-center">
@@ -322,7 +313,6 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
                   stroke="currentColor"
                   className={`w-4 h-4 mr-2 ${textColor}`}
                 >
-                  {/* Location Icon Path */}
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -351,19 +341,20 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
           </div>
         ))}
       </div>
-      <ReactPaginate className={`${textColor} font-quick font-bold flex mb-8 justify-center`}
-  previousLabel={"← Previous"}
-  nextLabel={"Next →"}
-  pageCount={pageCount}
-  onPageChange={(event) => setCurrentPage(event.selected)}
-  containerClassName={"pagination flex list-none"}
-  pageLinkClassName={"mx-2 px-3 py-2 rounded-md "} 
-  previousLinkClassName={"mx-2 px-3 py-2 rounded-md "}
-  nextLinkClassName={"mx-2 px-3 py-2 rounded-md "}
-  disabledClassName={"opacity-50 cursor-not-allowed"}
-  activeClassName={"bg-lightblue text-white rounded-md"}
-/>
-
+      }
+      <ReactPaginate
+        className={`${textColor} font-quick font-bold flex mb-8 justify-center`}
+        previousLabel={"← Previous"}
+        nextLabel={"Next →"}
+        pageCount={pageCount}
+        onPageChange={(event) => setCurrentPage(event.selected)}
+        containerClassName={"pagination flex list-none"}
+        pageLinkClassName={"mx-2 px-3 py-2 rounded-md "}
+        previousLinkClassName={"mx-2 px-3 py-2 rounded-md "}
+        nextLinkClassName={"mx-2 px-3 py-2 rounded-md "}
+        disabledClassName={"opacity-50 cursor-not-allowed"}
+        activeClassName={"bg-lightblue text-white rounded-md"}
+      />
       <JobModal
         bgColor={bgColor}
         textColor={textColor}
@@ -371,12 +362,7 @@ const pageCount = Math.ceil(filteredJobs.length / itemsPerPage);
         selectedJob={selectedJob}
         onClose={closeModal}
       />
-
-
-
       {/* jobs listing area end */}
-
-
     </main>
   );
 };

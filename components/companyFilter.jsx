@@ -1,30 +1,33 @@
-import { Fragment, useState } from 'react';
-import { Combobox, Transition } from '@headlessui/react';
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Fragment, useState } from "react";
+import { Combobox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const CompanyFilter = ({ companies, onCompanySelect }) => {
-  const [selectedCompany, setSelectedCompany] = useState(companies[0] || '');
-  const [query, setQuery] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState(companies[0] || "");
+  const [query, setQuery] = useState("");
 
   const filteredCompanies =
-    query === ''
+    query === ""
       ? companies
       : companies.filter((company) =>
           company.toLowerCase().includes(query.toLowerCase())
         );
 
   const clearSelection = () => {
-    setSelectedCompany('');
-    setQuery('');
-    onCompanySelect('');
+    setSelectedCompany("");
+    setQuery("");
+    onCompanySelect("");
   };
 
   return (
     <div className="w-full max-w-md mx-auto mb- sm:mb-0">
-      <Combobox value={selectedCompany} onChange={(company) => {
-        setSelectedCompany(company);
-        onCompanySelect(company);
-      }}>
+      <Combobox
+        value={selectedCompany}
+        onChange={(company) => {
+          setSelectedCompany(company);
+          onCompanySelect(company);
+        }}
+      >
         <div className="relative">
           <Combobox.Input
             className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm text-black"
@@ -32,18 +35,32 @@ const CompanyFilter = ({ companies, onCompanySelect }) => {
             displayValue={(company) => company}
             placeholder="Select a company"
           />
-        {selectedCompany && (
+          {selectedCompany && (
             <button
               onClick={clearSelection}
               className="absolute inset-y-0 right-8 flex items-center pr-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-black">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 6.75 10.5 10.5m0-10.5-10.5 10.5" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-black"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m6.75 6.75 10.5 10.5m0-10.5-10.5 10.5"
+                />
               </svg>
             </button>
           )}
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
-            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+            <ChevronUpDownIcon
+              className="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
           </Combobox.Button>
           <Transition
             as={Fragment}
@@ -58,13 +75,17 @@ const CompanyFilter = ({ companies, onCompanySelect }) => {
                   value={company}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-lightblue text-white' : 'text-gray-900'
+                      active ? "bg-lightblue text-white" : "text-gray-900"
                     }`
                   }
                 >
                   {({ selected }) => (
                     <>
-                      <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                      <span
+                        className={`block truncate ${
+                          selected ? "font-medium" : "font-normal"
+                        }`}
+                      >
                         {company}
                       </span>
                       {selected ? (
