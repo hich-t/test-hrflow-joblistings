@@ -3,15 +3,16 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const LocationFilter = ({ locations, onLocationSelect }) => {
-  const [selectedLocation, setSelectedLocation] = useState(locations[0] || "");
+  const [selectedLocation, setSelectedLocation] = useState(locations && locations.length > 0 ? locations[0] : "");
   const [query, setQuery] = useState("");
 
   const filteredLocations =
-    query === ""
-      ? locations
-      : locations.filter((location) =>
-          location.toLowerCase().includes(query.toLowerCase())
-        );
+  query === ""
+    ? (locations || [])
+    : (locations || []).filter((location) =>
+        location.toLowerCase().includes(query.toLowerCase())
+      );
+
 
   const clearSelection = () => {
     setSelectedLocation("");

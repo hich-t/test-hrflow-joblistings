@@ -3,15 +3,16 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const CompanyFilter = ({ companies, onCompanySelect }) => {
-  const [selectedCompany, setSelectedCompany] = useState(companies[0] || "");
+  const [selectedCompany, setSelectedCompany] = useState(companies && companies.length > 0 ? companies[0] : "");
   const [query, setQuery] = useState("");
 
   const filteredCompanies =
-    query === ""
-      ? companies
-      : companies.filter((company) =>
-          company.toLowerCase().includes(query.toLowerCase())
-        );
+  query === ""
+    ? (companies || [])
+    : (companies || []).filter((company) =>
+        company.toLowerCase().includes(query.toLowerCase())
+      );
+
 
   const clearSelection = () => {
     setSelectedCompany("");

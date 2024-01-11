@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { Switch } from "@headlessui/react";
 import { getJobs } from "../api/api.js";
-import LocationFilter from "../components/locationFilter.jsx";
-import CompanyFilter from "../components/companyFilter.jsx";
-import SearchBar from "../components/searchBar.jsx";
-import JobModal from "../components/jobModal";
+import LocationFilter from "../components/SearchAndFilter/locationFilter.jsx";
+import CompanyFilter from "../components/SearchAndFilter/companyFilter.jsx";
+import SearchBar from "../components/SearchAndFilter/searchBar.jsx";
+import JobModal from "../components/JobsDisplay/jobModal.jsx";
 import ReactPaginate from "react-paginate";
 import Spinner from "../components/spinner";
 
@@ -234,7 +234,12 @@ const HomePage = () => {
           </h1>
         </div>
       </div>
+
+      
       {/* top bar menu end */}
+
+
+
       {/* filter and search area start */}
       <div className="mt-12 mb-12 flex flex-col sm:flex-row items-center justify-center gap-8">
         <div>

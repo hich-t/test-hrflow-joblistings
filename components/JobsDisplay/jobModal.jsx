@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { formatDate } from "../functions/formatDate.js";
+import { formatDate } from "../../functions/formatDate.js";
 
 const JobModal = ({ isOpen, selectedJob, bgColor, textColor, onClose }) => {
   if (!isOpen || !selectedJob) return null;
