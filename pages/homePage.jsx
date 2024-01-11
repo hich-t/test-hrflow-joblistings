@@ -11,6 +11,7 @@ import ReactPaginate from "react-paginate";
 import Spinner from "../components/spinner";
 
 const HomePage = () => {
+    
   // data handling and pagination
 
   const [isLoading, setIsLoading] = useState(true);
@@ -235,10 +236,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      
       {/* top bar menu end */}
-
-
 
       {/* filter and search area start */}
       <div className="mt-12 mb-12 flex flex-col sm:flex-row items-center justify-center gap-8">
